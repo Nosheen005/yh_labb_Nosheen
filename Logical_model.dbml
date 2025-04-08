@@ -1,0 +1,104 @@
+Table VocationalUniversity {
+  UniversityID int [pk]
+  Name varchar
+  Establishment_date date
+}
+
+Table Address {
+  AddressID int [pk]
+  Street varchar
+  ZipCode varchar
+  City varchar
+  Country varchar
+}
+
+Table Location {
+  LocationID int [pk]
+  AddressID int [ref: > Address.AddressID]
+  UniversityID int [ref: > VocationalUniversity.UniversityID]
+}
+
+Table Program {
+  ProgramID int [pk]
+  Name varchar
+  Description text
+  Program_year date
+  LocationID int [ref: > Location.LocationID]
+}
+
+Table Class {
+  ClassID int [pk]
+  Name varchar
+  StartDate date
+  EndDate date
+  ProgramID int [ref: > Program.ProgramID]
+  CoordinatorID int [ref: > Employee.EmployeeID]
+  LocationID int [ref: > Location.LocationID]
+}
+
+Table Course {
+  CourseID int [pk]
+  Course_Name varchar
+  CourseCode varchar
+  Points int
+  ShortDescription text
+  Independent_course boolean
+}
+
+Table CourseProgram {
+  CourseProgramID int [pk]
+  ProgramID int [ref: > Program.ProgramID]
+  CourseID int [ref: > Course.CourseID]
+}
+
+Table Student {
+  StudentID int [pk]
+  FirstName varchar
+  LastName varchar
+  Email varchar
+  Phone_number int
+}
+
+Table Enrollment {
+  EnrollmentID int [pk]
+  StudentID int [ref: > Student.StudentID]
+  ClassID int [ref: > Class.ClassID]
+  EnrollmentDate date
+}
+
+Table Employee {
+  EmployeeID int [pk]
+  FirstName varchar
+  LastName varchar
+  Email varchar
+  phone_number int
+  Role varchar  // "Coordinator", "Teacher"
+  EmploymentType varchar  // "Permanent", "Consultant"
+  Hired_date date
+}
+
+Table Consultant {
+  ConsultantID int [pk]
+  EmployeeID int [ref: > Employee.EmployeeID]
+  CompanyID int [ref: > ConsultantCompany.CompanyID]
+   HourlyRate decimal
+}
+
+Table ConsultantCompany {
+  CompanyID int [pk]
+  Name varchar
+  OrgNumber varchar
+  FSkatt boolean
+  AddressID int [ref: > Address.AddressID]
+ 
+}
+
+Table Personal_Information {
+  Personal_informationID int [pk]
+  Personnummer varchar
+  Phone_number int
+  Emergnacy_contact_person_name varchar
+  Emergnacy_contact_person_PhoneNo int
+  StudentID int [ref: > Student.StudentID]
+  EmployeeID int [ref: > Employee.EmployeeID]
+}
