@@ -10,11 +10,11 @@ Table Address {
   ZipCode varchar
   City varchar
   Country varchar
+  LocationID int [ref: > Location.LocationID]
 }
 
 Table Location {
   LocationID int [pk]
-  AddressID int [ref: > Address.AddressID]
   UniversityID int [ref: > VocationalUniversity.UniversityID]
 }
 
@@ -34,6 +34,7 @@ Table Class {
   ProgramID int [ref: > Program.ProgramID]
   CoordinatorID int [ref: > Employee.EmployeeID]
   LocationID int [ref: > Location.LocationID]
+  CourseID int [ref: > Course.CourseID]
 }
 
 Table Course {
@@ -43,6 +44,7 @@ Table Course {
   Points int
   ShortDescription text
   Independent_course boolean
+  
 }
 
 Table CourseProgram {
@@ -56,7 +58,11 @@ Table Student {
   FirstName varchar
   LastName varchar
   Email varchar
-  Phone_number int
+  Phone_number varchar
+  DateOfBirth date
+  Gender varchar
+  AddressID int [ref: > Address.AddressID] 
+
 }
 
 Table Enrollment {
@@ -94,11 +100,12 @@ Table ConsultantCompany {
 }
 
 Table Personal_Information {
-  Personal_informationID int [pk]
+  PersonalInfoID int [pk]
   Personnummer varchar
   Phone_number int
   Emergnacy_contact_person_name varchar
   Emergnacy_contact_person_PhoneNo int
-  StudentID int [ref: > Student.StudentID]
-  EmployeeID int [ref: > Employee.EmployeeID]
+  StudentID int [unique,ref: > Student.StudentID]
+  EmployeeID int [ unique,ref: > Employee.EmployeeID]
 }
+
