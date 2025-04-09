@@ -1,20 +1,21 @@
 services:
   postgres:
     image: postgres:17.4
-    container_name: Labb
+    container_name: postgre_data_modeling
     restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "${POSTGRES_PORT}:5433"
+      - "${POSTGRES_PORT}:5432"
     volumes:
-      - Labb:/var/lib/postgresql/data # named_volume
+      - data_modeling_course:/var/lib/postgresql/data # named_volume
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
       interval: 5s
       retries: 5
       timeout: 3s
 volumes:
-  Labb:
+  data_modeling_course:
+  

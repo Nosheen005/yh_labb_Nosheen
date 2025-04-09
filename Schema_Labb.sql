@@ -1,7 +1,9 @@
 CREATE TABLE VocationalUniversity (
     university_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
+    name VARCHAR(100) NOT NULL,
+    establishment_date DATE
 );
+
 
 CREATE TABLE Address (
     address_id SERIAL PRIMARY KEY,
@@ -26,11 +28,11 @@ CREATE TABLE Program (
 
 CREATE TABLE Course (
     course_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    course_name VARCHAR(100) NOT NULL,
     course_code VARCHAR(20) NOT NULL,
     points INT,
     short_description TEXT,
-    is_freestanding BOOLEAN DEFAULT FALSE
+    independent_course BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE CourseProgram (
@@ -45,8 +47,10 @@ CREATE TABLE Employee (
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     email VARCHAR(100),
-    role VARCHAR(50),  -- "Coordinator", "Teacher"
-    employment_type VARCHAR(20)  -- "Permanent", "Consultant"
+    phone_number VARCHAR(20),
+    role VARCHAR(50),            -- "Coordinator", "Teacher"
+    employment_type VARCHAR(20), -- "Permanent", "Consultant"
+    hired_date DATE
 );
 
 CREATE TABLE ConsultantCompany (
@@ -54,14 +58,14 @@ CREATE TABLE ConsultantCompany (
     name VARCHAR(100),
     org_number VARCHAR(20),
     f_skatt BOOLEAN,
-    address_id INT REFERENCES Address(address_id),
-    hourly_rate DECIMAL(10,2)
+    address_id INT REFERENCES Address(address_id)
 );
 
 CREATE TABLE Consultant (
     consultant_id SERIAL PRIMARY KEY,
     employee_id INT UNIQUE REFERENCES Employee(employee_id),
-    company_id INT REFERENCES ConsultantCompany(company_id)
+    company_id INT REFERENCES ConsultantCompany(company_id),
+    hourly_rate DECIMAL(10,2)
 );
 
 CREATE TABLE Class (
@@ -71,14 +75,19 @@ CREATE TABLE Class (
     end_date DATE,
     program_id INT REFERENCES Program(program_id),
     coordinator_id INT REFERENCES Employee(employee_id),
-    location_id INT REFERENCES Location(location_id)
+    location_id INT REFERENCES Location(location_id),
+     course_id INT REFERENCES Course(course_id)
 );
 
 CREATE TABLE Student (
     student_id SERIAL PRIMARY KEY,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
-    email VARCHAR(100)
+    email VARCHAR(100),
+    phone_number VARCHAR(20),
+    date_of_birth DATE,
+    gender VARCHAR(10),
+    address_id INT REFERENCES Address(address_id)
 );
 
 CREATE TABLE Enrollment (
@@ -88,9 +97,13 @@ CREATE TABLE Enrollment (
     enrollment_date DATE
 );
 
-CREATE TABLE SensitiveData (
-    sensitive_data_id SERIAL PRIMARY KEY,
-    personnummer VARCHAR(20) NOT NULL,
-    student_id INT REFERENCES Student(student_id),
-    employee_id INT REFERENCES Employee(employee_id)
+-- Personal info table with one-to-one relationships
+CREATE TABLE PersonalInformation (
+    personal_info_id SERIAL PRIMARY KEY,
+    personnummer VARCHAR(20),
+    phone_number VARCHAR(20),
+    emergency_contact_name VARCHAR(100),
+    emergency_contact_phone VARCHAR(20),
+    student_id INT UNIQUE REFERENCES Student(student_id),
+    employee_id INT UNIQUE REFERENCES Employee(employee_id)
 );
