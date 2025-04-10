@@ -68,6 +68,12 @@ CREATE TABLE Consultant (
     hourly_rate DECIMAL(10,2)
 );
 
+CREATE TABLE ClassCoordinator (
+    coordinator_id SERIAL PRIMARY KEY,
+    employee_id INT UNIQUE REFERENCES Employee(employee_id),
+    classes_managed INT DEFAULT 0
+);
+
 CREATE TABLE Class (
     class_id SERIAL PRIMARY KEY,
     name VARCHAR(50),
