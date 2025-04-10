@@ -77,7 +77,7 @@ Table Employee {
   FirstName varchar
   LastName varchar
   Email varchar
-  phone_number int
+  phone_number varchar
   Role varchar  // "Coordinator", "Teacher"
   EmploymentType varchar  // "Permanent", "Consultant"
   Hired_date date
@@ -102,7 +102,7 @@ Table ConsultantCompany {
 Table Personal_Information {
   PersonalInfoID int [pk]
   Personnummer varchar
-  Phone_number int
+  Phone_number varchar
   Emergnacy_contact_person_name varchar
   Emergnacy_contact_person_PhoneNo int
   StudentID int [unique,ref: > Student.StudentID]
