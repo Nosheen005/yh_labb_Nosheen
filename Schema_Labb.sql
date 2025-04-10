@@ -107,3 +107,5 @@ CREATE TABLE PersonalInformation (
     student_id INT UNIQUE REFERENCES Student(student_id),
     employee_id INT UNIQUE REFERENCES Employee(employee_id)
 );
+
+

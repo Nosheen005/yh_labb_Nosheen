@@ -109,3 +109,7 @@ Table Personal_Information {
   EmployeeID int [ unique,ref: > Employee.EmployeeID]
 }
 
+Table ClassCoordinator {
+  CoordinatorID int [pk]
+  EmployeeID int [unique, ref: > Employee.EmployeeID]
+}
