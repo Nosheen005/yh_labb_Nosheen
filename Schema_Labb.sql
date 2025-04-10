@@ -1,3 +1,5 @@
+SET search_path TO project;
+
 CREATE TABLE VocationalUniversity (
     university_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
