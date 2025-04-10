@@ -97,7 +97,7 @@ CREATE TABLE Enrollment (
     enrollment_date DATE
 );
 
--- Personal info table with one-to-one relationships
+
 CREATE TABLE PersonalInformation (
     personal_info_id SERIAL PRIMARY KEY,
     personnummer VARCHAR(20),
